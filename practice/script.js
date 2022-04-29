@@ -63,6 +63,10 @@
         this.fileImage.setAttribute('src', fileName)
         img.setAttribute('src', fileName)
       })
+
+      this.fileInput.addEventListener('click', (event) => {
+        console.log(URL.createObjectURL(event.target))
+      })
     }
 
     drawEvent() {
@@ -76,6 +80,5 @@
   }
 
   new PhotoEditor()
-
 
 })()
