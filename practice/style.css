@@ -38,8 +38,7 @@ section {
   background: #ccc;
 }
 
-.editor_wrap,
-.image_wrap {
+.editor_wrap, .image_wrap {
   position: relative;
   width: 700px;
   height: 411px;

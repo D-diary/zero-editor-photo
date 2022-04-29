@@ -1,12 +1,12 @@
-;(function () {
-  'use strict'
+;(() => {
+  ;('use strict')
 
   const get = (element) => document.querySelector(element)
 
   class PhotoEditor {
     constructor() {
       this.container = get('main')
-      this.canvas = get('canvas')
+      this.canvas = get('.canvas')
       this.ctx = this.canvas.getContext('2d')
       this.width = 700
       this.height = 411
@@ -35,7 +35,7 @@
       this.fileEvent()
       this.drawEvent()
     }
-    
+
     clickEvent() {
       this.btnFlip.addEventListener('click', this.flipEvent.bind(this))
       this.btnSepia.addEventListener('click', this.sepiaEvent.bind(this))
@@ -143,9 +143,9 @@
         if (
           Math.abs(eX - sX) < this.minSize ||
           Math.abs(eY - sY) < this.minSize
-        ) {
+        )
           return
-        }
+
 
         this.drawOutput(sX, sY, eX - sX, eY - sY)
       })
@@ -187,5 +187,4 @@
   }
 
   new PhotoEditor()
-
 })()
