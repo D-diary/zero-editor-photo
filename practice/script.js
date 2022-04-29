@@ -111,7 +111,8 @@
       let drawStart = false
 
       this.canvas.addEventListener('mousedown', (e) => {
-        sX = parseInt
+        sX = parseInt(e.clientX - canvasX, 10)
+        sY = parseInt(e.clientY - canvasY, 10)
         drawStart = true
       })
 
@@ -129,8 +130,9 @@
         if (
           Math.abs(eX - sX) < this.minSize ||
           Math.abs(eY - sY) < this.minSize
-        )
+        ) {
           return
+        }
 
         this.drawOutput(sX, sY, eX - sX, eY - sY)
       })
