@@ -37,19 +37,58 @@
     }
     
     clickEvent() {
-
+      this.btnFlip.addEventListener('click', this.flipEvent.bind(this))
+      this.btnSepia.addEventListener('click', this.sepiaEvent.bind(this))
+      this.btnGray.addEventListener('click', this.grayEvent.bind(this))
+      // this.btnSave.addEventListener('click', this.download.bind(this))
     }
 
-    fileEvent() {
-
+    flipEvent() {
+      this.targetCtx.translate(this.targetWidth, 0)
+      this.targetCtx.scale(-1, 1)
+      this.targetCtx.drawImage(
+        this.img,
+        this.sourceX,
+        this.sourceY,
+        this.sourceWidth,
+        this.sourceHeight,
+        0,
+        0,
+        this.targetWidth,
+        this.targetHeight
+      )
     }
 
     sepiaEvent() {
-
+      this.targetCtx.clearRect(0, 0, this.targetWidth, this.targetHeight)
+      this.targetCtx.filter = 'sepia(1)'
+      this.targetCtx.drawImage(
+        this.img,
+        this.sourceX,
+        this.sourceY,
+        this.sourceWidth,
+        this.sourceHeight,
+        0,
+        0,
+        this.targetWidth,
+        this.targetHeight
+      )
     }
 
     grayEvent() {
-
+      this.targetCtx.clearRect(0, 0, this.targetWidth, this.targetHeight)
+      this.targetCtx.filter = 'grayscale(1)'
+      this.targetCtx.drawImage(
+        this.img,
+        this.sourceX,
+        this.sourceY,
+        this.sourceWidth,
+        this.sourceHeight,
+        0,
+        0,
+        this.targetWidth,
+        this.targetHeight
+      )
     }
 
     fileEvent() {
