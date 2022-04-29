@@ -63,19 +63,72 @@
         this.fileImage.setAttribute('src', fileName)
         img.setAttribute('src', fileName)
       })
-
-      this.fileInput.addEventListener('click', (event) => {
-        console.log(URL.createObjectURL(event.target))
-      })
     }
 
     drawEvent() {
+      const canvasX = this.canvas.getBoundingClientRect().left
+      const canvasY = this.canvas.getBoundingClientRect().top
+      let sX, sY, eX, eY
+      let drawStart = false
 
+      this.canvas.addEventListener('mousedown', (e) => {
+        sX = parseInt
+        drawStart = true
+      })
 
+      this.canvas.addEventListener('mousemove', (e) => {
+        if (!drawStart) return
+        eX = parseInt(e.clientX - canvasX, 10)
+        eY = parseInt(e.clientY - canvasY, 10)
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        this.ctx.strokeRect(sX, sY, eX - sX, eY - sY)
+      })
+
+      this.canvas.addEventListener('mouseup', () => {
+        drawStart = false
+
+        if (
+          Math.abs(eX - sX) < this.minSize ||
+          Math.abs(eY - sY) < this.minSize
+        )
+          return
+
+        this.drawOutput(sX, sY, eX - sX, eY - sY)
+      })
     }
 
-    drawOutput() {
+    drawOutput(x, y, width, height) {
+      this.targetImage.innerHTML = ''
+      if (Math.abs(width) <= Math.abs(height)) {
+        this.targetHeight = this.height
+        this.targetWidth = (this.targetHeight * width) / height
+      } else {
+        this.targetWidth = this.width
+        this.targetHeight = (this.targetWidth * height) / width
+      }
+      this.targetCanvas.width = this.targetWidth
+      this.targetCanvas.height = this.targetHeight
 
+      this.img.addEventListener('load', () => {
+        const buffer = this.img.width / this.width
+        this.sourceX = x * buffer
+        this.sourceY = y * buffer
+        this.sourceWidth = width * buffer
+        this.sourceHeight = height * buffer
+        this.targetCtx.drawImage(
+          this.img,
+          this.sourceX,
+          this.sourceY,
+          this.sourceWidth,
+          this.sourceHeight,
+          0,
+          0,
+          this.targetWidth,
+          this.targetHeight
+        )
+      })
+      this.img.src = this.fileImage.getAttribute('src')
+      this.targetImage.appendChild(this.targetCanvas)
     }
   }
 
