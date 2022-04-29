@@ -40,7 +40,7 @@
       this.btnFlip.addEventListener('click', this.flipEvent.bind(this))
       this.btnSepia.addEventListener('click', this.sepiaEvent.bind(this))
       this.btnGray.addEventListener('click', this.grayEvent.bind(this))
-      // this.btnSave.addEventListener('click', this.download.bind(this))
+      this.btnSave.addEventListener('click', this.download.bind(this))
     }
 
     flipEvent() {
@@ -89,6 +89,19 @@
         this.targetWidth,
         this.targetHeight
       )
+    }
+
+    download() {
+      const url = this.targetCanvas.toDataURL()
+      const downloader = document.createElement('a')
+      downloader.style.display = 'none'
+      downloader.setAttribute('href', url)
+      downloader.setAttribute('download', 'canvas.png')
+      this.container.appendChild(downloader)
+      downloader.click()
+      setTimeout(() => {
+        this.container.removeChild(downloader)
+      }, 100)
     }
 
     fileEvent() {
